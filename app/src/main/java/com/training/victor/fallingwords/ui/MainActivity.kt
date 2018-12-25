@@ -1,7 +1,8 @@
-package com.training.victor.fallingwords
+package com.training.victor.fallingwords.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.training.victor.fallingwords.R
 
 class MainActivity : AppCompatActivity() {
 
