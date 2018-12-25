@@ -1,8 +1,8 @@
 package com.training.victor.fallingwords.di.components
 
 import android.app.Application
-import com.training.victor.development.di.modules.DataBaseModule
-import com.training.victor.development.di.modules.DataManagerModule
+import com.training.victor.fallingwords.di.modules.DataBaseModule
+import com.training.victor.fallingwords.di.modules.DataManagerModule
 import com.training.victor.fallingwords.di.modules.AppModule
 import com.training.victor.fallingwords.di.modules.PresenterModule
 import dagger.Component

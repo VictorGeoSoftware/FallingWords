@@ -9,10 +9,13 @@ class SplashPresenter @Inject constructor(private val androidSchedulers: Schedul
                                           private val dataManager: DataManager) : Presenter<SplashPresenter.SplashView>() {
 
 
+
     interface SplashView {
 
     }
 
-
+    fun loadAllData() {
+        dataManager.loadDataFromJsonAndFeedDataBase()
+    }
 
 }

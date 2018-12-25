@@ -7,14 +7,19 @@ import com.training.victor.fallingwords.presenter.SplashPresenter
 import com.training.victor.fallingwords.utils.mainApplication
 import javax.inject.Inject
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), SplashPresenter.SplashView {
 
     @Inject lateinit var splashPresenter: SplashPresenter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         mainApplication().createPresenterComponent().inject(this)
+
+        splashPresenter.view = this
+        splashPresenter.loadAllData()
+
     }
 
     override fun onDestroy() {

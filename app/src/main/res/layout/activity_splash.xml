@@ -14,7 +14,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:style="@style/FallingWord"
-            style="@style/ShownWord" android:id="@+id/txtShownText"
+            style="@style/ShownWord" android:id="@+id/txtSplashText"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintTop_toTopOf="@+id/guideline2"/>
     <android.support.constraint.Guideline

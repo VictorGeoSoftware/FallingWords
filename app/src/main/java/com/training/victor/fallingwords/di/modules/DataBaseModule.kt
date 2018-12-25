@@ -1,4 +1,4 @@
-package com.training.victor.development.di.modules
+package com.training.victor.fallingwords.di.modules
 
 import android.arch.persistence.room.Room
 import android.content.Context
