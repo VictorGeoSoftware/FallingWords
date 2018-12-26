@@ -24,9 +24,6 @@ class DataManager(private val assetManager: AssetManager, private val translatio
             })
     }
 
-
-    // Gson().fromJson(it, object : TypeToken<List<TranslationJson>>() { }.type)
-
     private fun convertJsonToList(): Observable<ArrayList<TranslationJson>> {
         return loadJsonFileContent().flatMap { json ->
             val translationJsonList: ArrayList<TranslationJson>
