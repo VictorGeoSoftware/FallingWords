@@ -3,6 +3,7 @@
 ext {
     daggerVersion = '2.17'
     roomVersion = '1.1.1'
+    jsonFileName = '"words_v2.json"'
 }
 
 buildscript {

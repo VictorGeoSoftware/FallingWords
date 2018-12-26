@@ -7,6 +7,7 @@ import com.training.victor.fallingwords.di.components.AppComponent
 import com.training.victor.fallingwords.di.modules.AppModule
 import com.training.victor.fallingwords.di.modules.DataBaseModule
 import com.training.victor.fallingwords.di.modules.DataManagerModule
+import com.training.victor.fallingwords.test.SplashPresenterTest
 import dagger.Component
 import javax.inject.Singleton
 

@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.gson.Gson
 import com.training.victor.fallingwords.MainApplication
 import com.training.victor.fallingwords.R
+import com.training.victor.fallingwords.data.model.ErrorResp
+import retrofit2.adapter.rxjava2.HttpException
 
 fun ViewGroup.inflate(layoutRes: Int): View =
     LayoutInflater.from(context).inflate(layoutRes, this, false)
@@ -26,3 +29,12 @@ fun Activity.showRequestErrorMessage(cause: String) {
 }
 
 fun Activity.mainApplication(): MainApplication = this.application as MainApplication
+
+fun Throwable.getErrorMessage(): String {
+    return if (this is HttpException) {
+        val responseBody = this.response().errorBody()
+        Gson().fromJson<ErrorResp>(responseBody?.string(), ErrorResp::class.java).errorDescription
+    } else {
+        this.localizedMessage
+    }
+}

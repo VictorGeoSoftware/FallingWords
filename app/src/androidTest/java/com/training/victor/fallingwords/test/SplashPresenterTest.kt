@@ -1,27 +1,35 @@
-package com.training.victor.fallingwords
+package com.training.victor.fallingwords.test
 
-import android.support.test.espresso.Espresso
+import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.training.victor.fallingwords.ParentInstrumentalTest
+import com.training.victor.fallingwords.R
+import com.training.victor.fallingwords.data.DataManager
 import com.training.victor.fallingwords.ui.SplashActivity
-import cucumber.api.java.en.And
+import cucumber.api.java.After
+import cucumber.api.java.Before
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
-import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
+import javax.inject.Inject
 
 
 @RunWith(AndroidJUnit4::class)
 class SplashPresenterTest: ParentInstrumentalTest() {
     @Rule
-    val splashActivityTestRule = ActivityTestRule(SplashActivity::class.java)
+    val splashActivityTestRule: ActivityTestRule<SplashActivity> = ActivityTestRule(SplashActivity::class.java)
     private lateinit var splashActivity: SplashActivity
+
+    @Inject
+    lateinit var dataManager: DataManager
 
     @Before
     override fun setUp() {
@@ -29,6 +37,16 @@ class SplashPresenterTest: ParentInstrumentalTest() {
 
         testNetworkComponent.inject(this)
         MockitoAnnotations.initMocks(this)
+        Intents.init()
+
+        splashActivityTestRule.launchActivity(Intent())
+        splashActivity = splashActivityTestRule.activity
+    }
+
+    @After
+    fun tearDown() {
+        Intents.release()
+        splashActivity.finishAffinity()
     }
 
 
@@ -41,18 +59,16 @@ class SplashPresenterTest: ParentInstrumentalTest() {
             .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 
-    @When("json file is ready")
-    fun json_file_is_ready() {
-        splashActivity.splashPresenter.loadAllData()
-    }
-
-    @And("data base is feeded with all json file info")
-    fun data_base_is_feeded_with_all_json_file_info() {
+    @When("all data is prepared")
+    fun all_data_is_prepared() {
+        dataManager.loadDataFromJsonAndFeedDataBase()
+        dataManager.getDataBaseItemCount()
 
     }
 
     @Then("the main activity is launched")
     fun the_main_activity_is_launched() {
-
+        onView(ViewMatchers.withId(R.id.txtShownText))
+            .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 }

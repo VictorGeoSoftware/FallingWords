@@ -19,8 +19,11 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         // Cucumber settings
-        testApplicationId 'com.training.victor.development.test'
-        testInstrumentationRunner "com.training.victor.development.test.Instrumentation"
+        testApplicationId 'com.training.victor.fallingwords.test'
+        testInstrumentationRunner "com.training.victor.fallingwords.test.Instrumentation"
+
+        // Environment variables
+        buildConfigField "String", "JSON_FILE_NAME", rootProject.ext.jsonFileName
 
         javaCompileOptions {
             annotationProcessorOptions {
