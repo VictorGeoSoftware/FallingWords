@@ -28,9 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="ScoreWord"
-            android:id="@+id/textView" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtShownText" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtSplashText" android:layout_marginTop="8dp"/>
 
 </android.support.constraint.ConstraintLayout>

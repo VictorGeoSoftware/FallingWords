@@ -32,23 +32,13 @@ class SplashActivity : AppCompatActivity(), SplashPresenter.SplashView {
 
 
     override fun onDataBasePrepared() {
-        myTrace("onDataBasePrepared! :: ${splashPresenter.getDataBaseItemsCount()}")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-
     }
 
     override fun onDataBaseError(errorMessage: String) {
-        myTrace("onDataBaseError!")
         showRequestErrorMessage(errorMessage)
     }
 
-    override fun onDataBaseItemCountRetrieved(count: Int) {
-        myTrace("onDataBaseItemCountRetrieved! :: $count")
-    }
-
-    override fun onDataBaseItemCountError(errorMessage: String) {
-        myTrace("onDataBaseItemCountError! :: $errorMessage")
-    }
 }

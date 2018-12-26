@@ -15,12 +15,18 @@ import java.nio.charset.Charset
 
 class DataManager(private val assetManager: AssetManager, private val translationDataBase: TranslationDataBase) {
 
+    fun checkDataBaseStatus(): Observable<Boolean> {
+        return Observable.fromCallable { getDataBaseItemCount() > 0 }
+    }
+
     fun loadDataFromJsonAndFeedDataBase(): Completable {
         return Completable.fromObservable(convertJsonToList()
             .map { translationJsonList ->
                 translationJsonList.map {
                     translationDataBase.postDato().addTranslation(TranslationDto(it.key, it.translation))
                 }
+            }.map {
+                myTrace("loadDataFromJsonAndFeedDataBase - items :: ${getDataBaseItemCount()}")
             })
     }
 
@@ -41,7 +47,6 @@ class DataManager(private val assetManager: AssetManager, private val translatio
                 inputStream.read(buffer, 0, size)
                 inputStream.close()
                 val content = String(buffer, Charset.forName("UTF-8"))
-                myTrace("loadJsonFileContent $content")
                 it.onNext(content)
                 it.onComplete()
             } catch (e: IOException) {
@@ -51,7 +56,7 @@ class DataManager(private val assetManager: AssetManager, private val translatio
         }
     }
 
-    fun getDataBaseItemCount(): Observable<Int> {
-        return Observable.just(translationDataBase.postDato().getItemCount())
+    fun getDataBaseItemCount(): Int {
+        return translationDataBase.postDato().getItemCount()
     }
 }

@@ -2,20 +2,26 @@ package com.training.victor.fallingwords.test
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.intent.Intents.intended
+import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.training.victor.fallingwords.ParentInstrumentalTest
 import com.training.victor.fallingwords.R
 import com.training.victor.fallingwords.data.DataManager
+import com.training.victor.fallingwords.ui.MainActivity
 import com.training.victor.fallingwords.ui.SplashActivity
+import com.training.victor.fallingwords.utils.myTrace
 import cucumber.api.java.After
 import cucumber.api.java.Before
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
@@ -36,7 +42,6 @@ class SplashPresenterTest: ParentInstrumentalTest() {
         super.setUp()
 
         testNetworkComponent.inject(this)
-        MockitoAnnotations.initMocks(this)
         Intents.init()
 
         splashActivityTestRule.launchActivity(Intent())
@@ -55,20 +60,21 @@ class SplashPresenterTest: ParentInstrumentalTest() {
     // ------------------------------------------------------------------------------------------------------
     @Given("the splash view is shown")
     fun the_splash_view_is_shown() {
-        onView(ViewMatchers.withId(R.id.txtSplashText))
-            .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        Thread.sleep(500)
+//        onView(withId(R.id.txtSplashText)).check(matches(isDisplayed()))
     }
 
     @When("all data is prepared")
     fun all_data_is_prepared() {
         dataManager.loadDataFromJsonAndFeedDataBase()
-        dataManager.getDataBaseItemCount()
-
+        val items = dataManager.getDataBaseItemCount()
+        assertEquals(items, 295)
     }
 
     @Then("the main activity is launched")
     fun the_main_activity_is_launched() {
-        onView(ViewMatchers.withId(R.id.txtShownText))
-            .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        Thread.sleep(1000)
+        intended(hasComponent(MainActivity::class.java.name))
+        onView(withId(R.id.txtShownText)) .check(matches(isDisplayed()))
     }
 }
