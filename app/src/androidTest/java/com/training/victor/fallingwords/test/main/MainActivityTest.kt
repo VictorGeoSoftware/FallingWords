@@ -82,7 +82,7 @@ class MainActivityTest: ParentInstrumentalTest() {
     @Then("score label shows current score")
     fun score_label_shows_current_score() {
         onView(withId(R.id.txtWorng)).check(matches(withText("1")))
-        onView(withId(R.id.txtSkipped)).check(matches(withText("1")))
+        onView(withId(R.id.txtSkip)).check(matches(withText("1")))
         Thread.sleep(5000)
     }
 }

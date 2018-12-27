@@ -18,7 +18,11 @@ class MainPresenter @Inject constructor(private val androidSchedulers: Scheduler
         fun onRightCountUpdated(rightCount: Int)
         fun onWrongCountUpdated(wrongCount: Int)
         fun askForNewTranslation()
-        fun onGameFinished()
+        fun onGameFinished(rightCount: Int, skippedCount: Int, wrongCount: Int)
+    }
+
+    companion object {
+        private const val GAME_LIMIT = 25
     }
 
 
@@ -32,16 +36,18 @@ class MainPresenter @Inject constructor(private val androidSchedulers: Scheduler
 
 
     fun getNewKeyWord() {
-        compositeDisposable.add(dataManager.getNewKeyWord()
-            .observeOn(androidSchedulers)
-            .subscribeOn(subscriberSchedulers)
-            .subscribe({
-                mCurrentTranslation = it
-                view?.onNewTranslationAvailable(it)
-            }, {
-                it.printStackTrace()
-                view?.onNewTranslationError(it.message ?: "Unkown")
-            }))
+        if (mTotalGamesCount < GAME_LIMIT) {
+            compositeDisposable.add(dataManager.getNewKeyWord()
+                .observeOn(androidSchedulers)
+                .subscribeOn(subscriberSchedulers)
+                .subscribe({
+                    mCurrentTranslation = it
+                    view?.onNewTranslationAvailable(it)
+                }, {
+                    it.printStackTrace()
+                    view?.onNewTranslationError(it.message ?: "Unkown")
+                }))
+        }
     }
 
     fun getSupposedTranslation() {
@@ -92,12 +98,28 @@ class MainPresenter @Inject constructor(private val androidSchedulers: Scheduler
     private fun updateTotalGamesCount() {
         mTotalGamesCount += 1
 
-        if (mTotalGamesCount >= 25) {
-            view?.onGameFinished()
+        if (mTotalGamesCount >= GAME_LIMIT) {
+            view?.onGameFinished(mRightCount, mSkippedCount, mWrongCount)
         }
     }
 
     private fun isTranslationRight(): Boolean {
         return mCurrentTranslation?.translation == mSupposedTranslation?.translation
+    }
+
+    fun restartSession() {
+        mCurrentTranslation = null
+        mSupposedTranslation = null
+
+        mTotalGamesCount = 0
+        mWrongCount = 0
+        mSkippedCount = 0
+        mRightCount = 0
+
+        view?.onRightCountUpdated(mRightCount)
+        view?.onSkippedCountUpdated(mSkippedCount)
+        view?.onWrongCountUpdated(mWrongCount)
+
+        view?.askForNewTranslation()
     }
 }

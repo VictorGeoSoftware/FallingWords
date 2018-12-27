@@ -3,4 +3,9 @@
     <string name="by_me">by Víctor Palma</string>
     <string name="error_message">Some error happen: $s</string>
     <string name="dialog_finished_title">Game ended!</string>
+    <string name="hits_count">Hits: $s</string>
+    <string name="skipped_count">Skipped words: $s</string>
+    <string name="misses_count">Missed words: $s</string>
+    <string name="play_again">Play again</string>
+    <string name="exit">Exit</string>
 </resources>

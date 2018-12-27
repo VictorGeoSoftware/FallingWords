@@ -6,6 +6,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.training.victor.fallingwords.R
+import com.training.victor.fallingwords.data.Constants.Companion.END_DIALOG_TAG
 import com.training.victor.fallingwords.data.model.TranslationViewModel
 import com.training.victor.fallingwords.presenter.MainPresenter
 import com.training.victor.fallingwords.utils.mainApplication
@@ -13,7 +14,7 @@ import com.training.victor.fallingwords.utils.showRequestErrorMessage
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainPresenter.MainView {
+class MainActivity : AppCompatActivity(), MainPresenter.MainView, GameFinishedDialog.GameFinishedListener {
 
     @Inject lateinit var mainPresenter: MainPresenter
     lateinit var animation: Animation
@@ -93,9 +94,24 @@ class MainActivity : AppCompatActivity(), MainPresenter.MainView {
         mainPresenter.getNewKeyWord()
     }
 
-    override fun onGameFinished() {
-        removeTextAnimation(txtFallingWord)
+    override fun onGameFinished(rightCount: Int, skippedCount: Int, wrongCount: Int) {
+        val endDialog = GameFinishedDialog.newInstance(
+            rightCount.toString(),
+            skippedCount.toString(),
+            wrongCount.toString(),
+            this)
+        endDialog.isCancelable = false
+        endDialog.show(supportFragmentManager, END_DIALOG_TAG)
+    }
 
+
+
+    override fun onContinueWithGame() {
+        mainPresenter.restartSession()
+    }
+
+    override fun onExitGame() {
+        finish()
     }
 
 

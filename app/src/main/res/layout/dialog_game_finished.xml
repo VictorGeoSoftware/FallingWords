@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             android:layout_height="wrap_content">
 
     <TextView
             android:text="@string/dialog_finished_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/FallingWord"
             android:id="@+id/textView2" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+    <TextView
+            tools:text="@string/hits_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ScoreWord"
+            android:id="@+id/txtHits" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"/>
+    <TextView
+            tools:text="@string/skipped_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NormalWord"
+            android:id="@+id/txtSkip" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtHits" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"/>
+    <TextView
+            tools:text="@string/misses_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NormalWord"
+            android:id="@+id/txtWorngs" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtSkip" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"/>
+    <Button
+            android:text="@string/play_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/btnContinue" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtWorngs"/>
+    <Button
+            android:text="@string/exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/btnExit" app:layout_constraintEnd_toStartOf="@+id/btnContinue"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtWorngs"/>
 </android.support.constraint.ConstraintLayout>
