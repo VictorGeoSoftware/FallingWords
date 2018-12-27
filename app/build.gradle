@@ -115,6 +115,6 @@ dependencies {
     androidTestImplementation "android.arch.core:core-testing:$roomVersion"
 
     // Cucumber
-    androidTestImplementation 'info.cukes:cucumber-android:1.2.5@jar'
-    androidTestImplementation 'info.cukes:cucumber-picocontainer:1.2.4'
+    androidTestImplementation 'info.cukes:cucumber-android:1.2.5'
+    androidTestImplementation 'info.cukes:cucumber-picocontainer:1.2.5'
 }

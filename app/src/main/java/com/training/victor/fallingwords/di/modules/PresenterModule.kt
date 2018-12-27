@@ -2,6 +2,7 @@ package com.training.victor.fallingwords.di.modules
 
 import com.training.victor.fallingwords.data.DataManager
 import com.training.victor.fallingwords.di.ViewScope
+import com.training.victor.fallingwords.presenter.MainPresenter
 import com.training.victor.fallingwords.presenter.SplashPresenter
 import dagger.Module
 import dagger.Provides
@@ -32,4 +33,10 @@ class PresenterModule {
     fun provideSplashPresenter(@Named(ANDROID_SCHEDULER) androidScheduler:Scheduler,
                                @Named(TASK_SCHEDULER) taskScheduler:Scheduler,
                                dataManager: DataManager) = SplashPresenter(androidScheduler, taskScheduler, dataManager)
+
+    @Provides
+    @ViewScope
+    fun provideMainPresenter(@Named(ANDROID_SCHEDULER) androidScheduler:Scheduler,
+                               @Named(TASK_SCHEDULER) taskScheduler:Scheduler,
+                               dataManager: DataManager) = MainPresenter(androidScheduler, taskScheduler, dataManager)
 }

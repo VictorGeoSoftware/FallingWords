@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6d1a1dace00c90cf92db40e29da56a9e",
+    "identityHash": "44d66599071be4896a1492838fe0ec65",
     "entities": [
       {
-        "tableName": "TRADUCTION_DB",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `translation` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "tableName": "TRANSLATION_DB",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `key` TEXT NOT NULL, `translation` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "key",
             "columnName": "key",
@@ -23,9 +29,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "key"
+            "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -33,7 +39,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6d1a1dace00c90cf92db40e29da56a9e\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"44d66599071be4896a1492838fe0ec65\")"
     ]
   }
 }

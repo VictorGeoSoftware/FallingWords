@@ -2,4 +2,5 @@
     <string name="app_name">FallingWords</string>
     <string name="by_me">by Víctor Palma</string>
     <string name="error_message">Some error happen: $s</string>
+    <string name="dialog_finished_title">Game ended!</string>
 </resources>

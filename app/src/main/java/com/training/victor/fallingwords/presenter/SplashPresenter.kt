@@ -8,9 +8,7 @@ import javax.inject.Inject
 
 class SplashPresenter @Inject constructor(private val androidSchedulers: Scheduler,
                                           private val subscriberSchedulers: Scheduler,
-                                          private val dataManager: DataManager) : Presenter<SplashPresenter.SplashView>() {
-
-
+                                          private val dataManager: DataManager): Presenter<SplashPresenter.SplashView>() {
 
     interface SplashView {
         fun onDataBasePrepared()
@@ -18,12 +16,14 @@ class SplashPresenter @Inject constructor(private val androidSchedulers: Schedul
     }
 
     fun loadAllData() {
-        compositeDisposable.add(Completable.fromObservable(
-            dataManager.checkDataBaseStatus().map { dbReady ->
-                if (!dbReady) {
+        compositeDisposable.add(dataManager.checkDataBaseStatus()
+            .flatMapCompletable { dbReady ->
+                if (dbReady) {
+                    Completable.complete()
+                } else {
                     dataManager.loadDataFromJsonAndFeedDataBase()
                 }
-            })
+            }
             .observeOn(androidSchedulers)
             .subscribeOn(subscriberSchedulers)
             .subscribe({

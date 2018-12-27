@@ -1,4 +1,4 @@
-package com.training.victor.fallingwords.test
+package com.training.victor.fallingwords.test.splash
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
@@ -15,7 +15,6 @@ import com.training.victor.fallingwords.R
 import com.training.victor.fallingwords.data.DataManager
 import com.training.victor.fallingwords.ui.MainActivity
 import com.training.victor.fallingwords.ui.SplashActivity
-import com.training.victor.fallingwords.utils.myTrace
 import cucumber.api.java.After
 import cucumber.api.java.Before
 import cucumber.api.java.en.Given
@@ -24,12 +23,11 @@ import cucumber.api.java.en.When
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.runner.RunWith
-import org.mockito.MockitoAnnotations
 import javax.inject.Inject
 
 
 @RunWith(AndroidJUnit4::class)
-class SplashPresenterTest: ParentInstrumentalTest() {
+class SplashActivityTest: ParentInstrumentalTest() {
     @Rule
     val splashActivityTestRule: ActivityTestRule<SplashActivity> = ActivityTestRule(SplashActivity::class.java)
     private lateinit var splashActivity: SplashActivity
@@ -60,8 +58,7 @@ class SplashPresenterTest: ParentInstrumentalTest() {
     // ------------------------------------------------------------------------------------------------------
     @Given("the splash view is shown")
     fun the_splash_view_is_shown() {
-        Thread.sleep(500)
-//        onView(withId(R.id.txtSplashText)).check(matches(isDisplayed()))
+
     }
 
     @When("all data is prepared")
@@ -75,6 +72,6 @@ class SplashPresenterTest: ParentInstrumentalTest() {
     fun the_main_activity_is_launched() {
         Thread.sleep(1000)
         intended(hasComponent(MainActivity::class.java.name))
-        onView(withId(R.id.txtShownText)) .check(matches(isDisplayed()))
+        onView(withId(R.id.txtShownText)).check(matches(isDisplayed()))
     }
 }

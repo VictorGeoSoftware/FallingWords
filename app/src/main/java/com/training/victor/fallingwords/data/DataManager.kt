@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.training.victor.fallingwords.BuildConfig
 import com.training.victor.fallingwords.data.model.TranslationJson
+import com.training.victor.fallingwords.data.model.TranslationViewModel
 import com.training.victor.fallingwords.data.room.TranslationDataBase
 import com.training.victor.fallingwords.data.room.TranslationDto
 import com.training.victor.fallingwords.utils.myTrace
@@ -12,17 +13,24 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import java.io.IOException
 import java.nio.charset.Charset
+import kotlin.random.Random
 
 class DataManager(private val assetManager: AssetManager, private val translationDataBase: TranslationDataBase) {
 
     fun checkDataBaseStatus(): Observable<Boolean> {
-        return Observable.fromCallable { getDataBaseItemCount() > 0 }
+        return Observable.fromCallable {
+            val items = getDataBaseItemCount()
+            myTrace("checkDataBaseStatus - items :: $items")
+            items > 0
+        }
     }
 
     fun loadDataFromJsonAndFeedDataBase(): Completable {
         return Completable.fromObservable(convertJsonToList()
             .map { translationJsonList ->
+                myTrace("loadDataFromJsonAndFeedDataBase - map1 :: $translationJsonList")
                 translationJsonList.map {
+                    myTrace("loadDataFromJsonAndFeedDataBase - map2 :: $it")
                     translationDataBase.postDato().addTranslation(TranslationDto(it.key, it.translation))
                 }
             }.map {
@@ -58,5 +66,16 @@ class DataManager(private val assetManager: AssetManager, private val translatio
 
     fun getDataBaseItemCount(): Int {
         return translationDataBase.postDato().getItemCount()
+    }
+
+    fun getNewKeyWord(): Observable<TranslationViewModel> {
+        return Observable.fromCallable {
+            getDataBaseItemCount()
+        }.flatMap { randomId ->
+            val randomInt = Random.nextInt(0, randomId)
+            translationDataBase.postDato().getTranslationById(randomInt).flatMapObservable { translation ->
+                Observable.just(TranslationViewModel(translation.key, translation.translation))
+            }
+        }
     }
 }

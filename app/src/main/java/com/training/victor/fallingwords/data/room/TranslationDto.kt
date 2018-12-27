@@ -3,9 +3,11 @@ package com.training.victor.fallingwords.data.room
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.training.victor.fallingwords.data.Constants.Companion.TRADUCTION_DB
+import com.training.victor.fallingwords.data.Constants.Companion.TRANSLATION_DB
 
-@Entity(tableName = TRADUCTION_DB)
-class TranslationDto(@PrimaryKey
-                     @SerializedName("key") val key: String,
-                     @SerializedName("translation") val translation: String)
+@Entity(tableName = TRANSLATION_DB)
+data class TranslationDto(@SerializedName("key") val key: String,
+                     @SerializedName("translation") val translation: String) {
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("id") var id: Int = 0
+}

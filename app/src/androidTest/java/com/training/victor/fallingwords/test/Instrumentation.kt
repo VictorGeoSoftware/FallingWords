@@ -5,7 +5,8 @@ import android.support.test.runner.MonitoringInstrumentation
 import cucumber.api.CucumberOptions
 import cucumber.api.android.CucumberInstrumentationCore
 
-@CucumberOptions(features = ["features/first_start.feature"], glue = ["com.training.victor.fallingwords.test"])
+//@CucumberOptions(features = ["features/first_start.feature"], glue = ["com.training.victor.fallingwords.test.splash"], tags = ["@test1"])
+@CucumberOptions(features = ["features/first_start.feature"], glue = ["com.training.victor.fallingwords.test.main"], tags = ["@test2"])
 class Instrumentation: MonitoringInstrumentation() {
     private val instrumentationCore = CucumberInstrumentationCore(this)
 

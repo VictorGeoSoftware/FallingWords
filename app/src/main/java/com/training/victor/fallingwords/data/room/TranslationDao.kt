@@ -12,9 +12,12 @@ interface TranslationDao {
     @Insert(onConflict = REPLACE)
     fun addTranslation(translationDto: TranslationDto)
 
-    @Query("SELECT * FROM TRADUCTION_DB WHERE `key` = :translationKey")
+    @Query("SELECT * FROM TRANSLATION_DB WHERE `key` = :translationKey")
     fun getTranslation(translationKey: String): Maybe<TranslationDto>
 
-    @Query("SELECT COUNT(`key`) FROM TRADUCTION_DB")
+    @Query("SELECT COUNT(`key`) FROM TRANSLATION_DB")
     fun getItemCount(): Int
+
+    @Query("SELECT * FROM TRANSLATION_DB WHERE id = :translationId")
+    fun getTranslationById(translationId: Int): Maybe<TranslationDto>
 }
